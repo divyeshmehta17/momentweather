@@ -8,8 +8,6 @@ import '../modules/near/bindings/near_binding.dart';
 import '../modules/near/views/near_view.dart';
 import '../modules/settings/bindings/settings_binding.dart';
 import '../modules/settings/views/settings_view.dart';
-import '../modules/splash/bindings/splash_binding.dart';
-import '../modules/splash/views/splash_view.dart';
 import '../modules/todayweather/bindings/todayweather_binding.dart';
 import '../modules/todayweather/views/todayweather_view.dart';
 
@@ -23,8 +21,8 @@ class AppPages {
   static final routes = [
     GetPage(
       name: _Paths.SPLASH,
-      page: () => const SplashView(),
-      binding: SplashBinding(),
+      page: () => const NearView(),
+      binding: NearBinding(),
     ),
     GetPage(
       name: _Paths.TODAYWEATHER,
@@ -51,5 +49,10 @@ class AppPages {
       page: () => const NearView(),
       binding: NearBinding(),
     ),
+    // GetPage(
+    //   name: _Paths.TABBAR,
+    //   page: () => TabbarView(),
+    //   binding: TabbarBinding(),
+    // ),
   ];
 }

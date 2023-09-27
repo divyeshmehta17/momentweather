@@ -10,6 +10,7 @@ abstract class Routes {
   static const FAVORITE = _Paths.FAVORITE;
   static const SETTINGS = _Paths.SETTINGS;
   static const NEAR = _Paths.NEAR;
+  static const TABBAR = _Paths.TABBAR;
 }
 
 abstract class _Paths {
@@ -21,4 +22,5 @@ abstract class _Paths {
   static const FAVORITE = '/favorite';
   static const SETTINGS = '/settings';
   static const NEAR = '/near';
+  static const TABBAR = '/tabbar';
 }

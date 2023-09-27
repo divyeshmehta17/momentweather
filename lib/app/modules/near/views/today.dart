@@ -8,51 +8,57 @@ import '../../../services/text_style_util.dart';
 import '../controllers/near_controller.dart';
 import 'hourlyweatherlist.dart';
 
-class TodayView extends StatefulWidget {
-  @override
-  State<TodayView> createState() => _TodayViewState();
-}
+class TodayView extends StatelessWidget {
+  final NearController controller = Get.put(NearController());
 
-class _TodayViewState extends State<TodayView> {
-  final NearController todayController = Get.put(NearController());
-
-  @override
-  void initState() {
-    super.initState();
-    // Fetch weather data and location when the widget is initialized
-    todayController.fetchWeatherData();
-    todayController.fetchLocation();
-    todayController.fetchhourlyWeatherData();
-  }
+  TodayView({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: GetBuilder<NearController>(
-        builder: (controller) {
-          return Padding(
-              padding: EdgeInsets.only(top: 16.kh),
-              child: Column(children: [
-                Container(
-                    height: 262, // Replace with your desired height
-                    width: 361, // Replace with your desired width
-                    decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                        colors: [
-                          Color(0xFF062D66),
-                          Color(0xFF0B2C6C),
-                          Color(0xFF04245D),
-                          Color(0xFF123F5F),
-                          Color(0xFF316477),
-                        ],
-                        begin: Alignment.topCenter,
-                        end: Alignment.bottomCenter,
-                      ),
-                      borderRadius: BorderRadius.circular(24),
+      body: Obx(() {
+        final Map weatherData = controller.weatherData.value;
+        if (weatherData == null ||
+            weatherData['current_weather'] == null ||
+            weatherData['hourly'] == null) {
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
+        }
+
+        return Padding(
+          padding: EdgeInsets.only(top: 16.kh),
+          child: Column(
+            children: [
+              Container(
+                  // Replace with your desired height
+                  width: 361, // Replace with your desired width
+                  decoration: BoxDecoration(
+                    gradient: const LinearGradient(
+                      colors: [
+                        Color(0xFF062D66),
+                        Color(0xFF0B2C6C),
+                        Color(0xFF04245D),
+                        Color(0xFF123F5F),
+                        Color(0xFF316477),
+                      ],
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
                     ),
-                    child: Padding(
-                      padding: EdgeInsets.only(left: 20.kh, top: 20.kh),
-                      child: Column(
+                    borderRadius: BorderRadius.circular(24),
+                  ),
+                  child: Padding(
+                    padding: EdgeInsets.only(left: 20.kh, top: 20.kh),
+                    child: Obx(() {
+                      final Map weatherData = controller.weatherData.value;
+
+                      if (weatherData == null ||
+                          weatherData['current_weather'] == null ||
+                          weatherData['hourly'] == null) {
+                        // Show a loader or a placeholder when data is being fetched or not available
+                        return Center(child: CircularProgressIndicator());
+                      }
+                      return Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Row(
@@ -66,7 +72,7 @@ class _TodayViewState extends State<TodayView> {
                                         color: Colors.white, width: 1)),
                                 child: Center(
                                   child: Text(
-                                    '${controller.subLocality}',
+                                    '${controller.subLocality.value}',
                                     style: TextStyleUtil.SFPro400(fontSize: 17),
                                   ),
                                 ),
@@ -102,12 +108,12 @@ class _TodayViewState extends State<TodayView> {
                                     children: [
                                       Row(
                                         children: [
-                                          Icon(
+                                          const Icon(
                                             Icons.arrow_upward,
                                             color: Colors.white,
                                           ),
                                           Text(
-                                            '${controller.fivedaysData['daily']['temperature_2m_max'][0]} °C',
+                                            '${controller.weatherData['daily']['temperature_2m_max'][0]} °C',
                                             style: TextStyleUtil.SFPro400(
                                                 fontSize: 15.kh),
                                           )
@@ -117,10 +123,10 @@ class _TodayViewState extends State<TodayView> {
                                         padding: EdgeInsets.only(top: 32.kh),
                                         child: Row(
                                           children: [
-                                            Icon(Icons.arrow_downward,
+                                            const Icon(Icons.arrow_downward,
                                                 color: Colors.white),
                                             Text(
-                                              '${controller.fivedaysData['daily']['temperature_2m_min'][0]} °C',
+                                              '${controller.weatherData['daily']['temperature_2m_min'][0]} °C',
                                               style: TextStyleUtil.SFPro400(
                                                   fontSize: 15.kh),
                                             )
@@ -136,7 +142,7 @@ class _TodayViewState extends State<TodayView> {
                           Container(
                             height: 1.kh,
                             width: 305.kw,
-                            color: Color(0xffEBEBF54D).withOpacity(0.3),
+                            color: const Color(0xffebebf54d).withOpacity(0.3),
                           ),
                           Padding(
                             padding: EdgeInsets.only(top: 20.kh),
@@ -150,7 +156,7 @@ class _TodayViewState extends State<TodayView> {
                                     '30%',
                                     style: TextStyleUtil.SFPro400(
                                         fontSize: 17,
-                                        color: Color.fromARGB(
+                                        color: const Color.fromARGB(
                                           60,
                                           235,
                                           235,
@@ -160,16 +166,14 @@ class _TodayViewState extends State<TodayView> {
                                 ),
                                 SvgPicture.asset(ImageConstant.svgwave),
                                 Padding(
-                                  padding: EdgeInsets.only(left: 4.0),
+                                  padding: const EdgeInsets.only(left: 4.0),
                                   child: Text(
-                                    controller.hourlyData != null &&
-                                            controller.hourlyData['hourly'] !=
-                                                null
-                                        ? '${controller.hourlyData['hourly']['precipitation'][0]} mm'
+                                    controller.weatherData['hourly'] != null
+                                        ? '${controller.weatherData['hourly']['precipitation'][0]} mm'
                                         : 'N/A',
                                     style: TextStyleUtil.SFPro400(
                                         fontSize: 17,
-                                        color: Color.fromARGB(
+                                        color: const Color.fromARGB(
                                           60,
                                           235,
                                           235,
@@ -190,7 +194,7 @@ class _TodayViewState extends State<TodayView> {
                                   '${controller.weatherData['current_weather']['windspeed']} m/s',
                                   style: TextStyleUtil.SFPro400(
                                       fontSize: 17,
-                                      color: Color.fromARGB(
+                                      color: const Color.fromARGB(
                                         60,
                                         235,
                                         235,
@@ -201,7 +205,7 @@ class _TodayViewState extends State<TodayView> {
                               Directionality(
                                 textDirection: TextDirection.rtl,
                                 child: TextButton.icon(
-                                  icon: Icon(Icons.arrow_back,
+                                  icon: const Icon(Icons.arrow_back,
                                       color: Color.fromARGB(
                                         60,
                                         235,
@@ -213,7 +217,7 @@ class _TodayViewState extends State<TodayView> {
                                     'Details',
                                     style: TextStyleUtil.SFPro600(
                                         fontSize: 17,
-                                        color: Color.fromARGB(
+                                        color: const Color.fromARGB(
                                           60,
                                           235,
                                           235,
@@ -225,15 +229,17 @@ class _TodayViewState extends State<TodayView> {
                             ],
                           ),
                         ],
-                      ),
-                    )),
-                Padding(
-                  padding: EdgeInsets.only(top: 18.kh),
-                  child: HourlyweaterList(),
-                ),
-              ]));
-        },
-      ),
+                      );
+                    }),
+                  )),
+              Padding(
+                padding: EdgeInsets.only(top: 18.kh),
+                child: HourlyWeatherList(),
+              ),
+            ],
+          ),
+        );
+      }),
     );
   }
 }

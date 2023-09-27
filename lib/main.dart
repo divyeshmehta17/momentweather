@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:momentweatherapp/app/modules/splash/bindings/splash_binding.dart';
+import 'package:momentweatherapp/app/modules/near/bindings/near_binding.dart';
 
 import 'app/routes/app_pages.dart';
 import 'app/services/storage.dart';
@@ -9,6 +9,7 @@ import 'app/services/storage.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await initGetServices();
+
   SystemChrome.setPreferredOrientations(
     [DeviceOrientation.portraitUp],
   );
@@ -24,7 +25,7 @@ Future<void> main() async {
       debugShowCheckedModeBanner: false,
       locale: const Locale('en', 'US'),
       initialRoute: AppPages.INITIAL,
-      initialBinding: SplashBinding(),
+      initialBinding: NearBinding(),
       getPages: AppPages.routes,
     ),
   ));

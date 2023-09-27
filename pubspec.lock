@@ -77,26 +77,26 @@ packages:
     dependency: "direct main"
     description:
       name: cached_network_image
-      sha256: fd3d0dc1d451f9a252b32d95d3f0c3c487bc41a75eba2e6097cb0b9c71491b15
+      sha256: f98972704692ba679db144261172a8e20feb145636c617af0eb4022132a6797f
       url: "https://pub.dev"
     source: hosted
-    version: "3.2.3"
+    version: "3.3.0"
   cached_network_image_platform_interface:
     dependency: transitive
     description:
       name: cached_network_image_platform_interface
-      sha256: bb2b8403b4ccdc60ef5f25c70dead1f3d32d24b9d6117cfc087f496b178594a7
+      sha256: "56aa42a7a01e3c9db8456d9f3f999931f1e05535b5a424271e9a38cabf066613"
       url: "https://pub.dev"
     source: hosted
-    version: "2.0.0"
+    version: "3.0.0"
   cached_network_image_web:
     dependency: transitive
     description:
       name: cached_network_image_web
-      sha256: b8eb814ebfcb4dea049680f8c1ffb2df399e4d03bf7a352c775e26fa06e02fa0
+      sha256: "759b9a9f8f6ccbb66c185df805fac107f05730b1dab9c64626d1008cca532257"
       url: "https://pub.dev"
     source: hosted
-    version: "1.0.2"
+    version: "1.1.0"
   characters:
     dependency: transitive
     description:
@@ -254,14 +254,6 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
-  flutter_blurhash:
-    dependency: transitive
-    description:
-      name: flutter_blurhash
-      sha256: "05001537bd3fac7644fa6558b09ec8c0a3f2eba78c0765f88912882b1331a5c6"
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.7.0"
   flutter_cache_manager:
     dependency: transitive
     description:
@@ -404,18 +396,18 @@ packages:
     dependency: "direct main"
     description:
       name: geolocator
-      sha256: "9f1c9a70dd25fc9d9574ff17ba714cf3bc7894258efd7d1ce0debfafe2f8e1d8"
+      sha256: e946395fc608842bb2f6c914807e9183f86f3cb787f6b8f832753e5251036f02
       url: "https://pub.dev"
     source: hosted
-    version: "10.0.1"
+    version: "10.1.0"
   geolocator_android:
     dependency: transitive
     description:
       name: geolocator_android
-      sha256: "6cd3c622df085a79fd61f5c14fa024c3ba593aa6b1df2ee809ac59f45e6a9861"
+      sha256: "93906636752ea4d4e778afa981fdfe7409f545b3147046300df194330044d349"
       url: "https://pub.dev"
     source: hosted
-    version: "4.1.8"
+    version: "4.3.1"
   geolocator_apple:
     dependency: transitive
     description:
@@ -620,10 +612,10 @@ packages:
     dependency: transitive
     description:
       name: octo_image
-      sha256: "107f3ed1330006a3bea63615e81cf637433f5135a52466c7caa0e7152bca9143"
+      sha256: "45b40f99622f11901238e18d48f5f12ea36426d8eced9f4cbf58479c7aa2430d"
       url: "https://pub.dev"
     source: hosted
-    version: "1.0.2"
+    version: "2.0.0"
   package_config:
     dependency: transitive
     description:
@@ -813,14 +805,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.10.0"
-  sprintf:
-    dependency: transitive
-    description:
-      name: sprintf
-      sha256: "1fc9ffe69d4df602376b52949af107d8f5703b77cda567c4d7d86a0693120f23"
-      url: "https://pub.dev"
-    source: hosted
-    version: "7.0.0"
   sqflite:
     dependency: transitive
     description:
@@ -977,10 +961,10 @@ packages:
     dependency: transitive
     description:
       name: uuid
-      sha256: e03928880bdbcbf496fb415573f5ab7b1ea99b9b04f669c01104d085893c3134
+      sha256: "648e103079f7c64a36dc7d39369cabb358d377078a051d6ae2ad3aa539519313"
       url: "https://pub.dev"
     source: hosted
-    version: "4.0.0"
+    version: "3.0.7"
   vector_graphics:
     dependency: transitive
     description:
@@ -1033,10 +1017,10 @@ packages:
     dependency: transitive
     description:
       name: win32
-      sha256: c97defd418eef4ec88c0d1652cdce84b9f7b63dd7198e266d06ac1710d527067
+      sha256: "350a11abd2d1d97e0cc7a28a81b781c08002aa2864d9e3f192ca0ffa18b06ed3"
       url: "https://pub.dev"
     source: hosted
-    version: "5.0.8"
+    version: "5.0.9"
   xdg_directories:
     dependency: transitive
     description:

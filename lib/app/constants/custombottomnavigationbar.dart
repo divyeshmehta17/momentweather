@@ -1,31 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
 
-import '../constants/image_constant.dart';
 import '../modules/favorite/views/favorite_view.dart';
 import '../modules/near/views/near_view.dart';
 import '../modules/settings/views/settings_view.dart';
+import 'bottombarcontroller.dart';
+import 'image_constant.dart';
 
-class CustomBottomBar extends StatefulWidget {
-  const CustomBottomBar({Key? key}) : super(key: key);
+final List<Widget> _widgetOptions = <Widget>[
+  NearView(),
+  FavoriteView(),
+  SettingsView(),
+];
 
-  @override
-  State<CustomBottomBar> createState() => _CustomBottomBarState();
-}
-
-class _CustomBottomBarState extends State<CustomBottomBar> {
-  int _selectedIndex = 0;
-  static const List<Widget> _widgetOptions = <Widget>[
-    NearView(),
-    FavoriteView(),
-    SettingsView(),
-  ];
-
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-  }
+class CustomBottomBar extends StatelessWidget {
+  final CustomBottomBarController controller =
+      Get.put(CustomBottomBarController());
 
   ShaderMask _buildShaderMask(Widget child, bool isSelected) {
     return ShaderMask(
@@ -44,8 +35,9 @@ class _CustomBottomBarState extends State<CustomBottomBar> {
 
   @override
   Widget build(BuildContext context) {
+    Get.put(CustomBottomBarController());
     return Scaffold(
-      body: _widgetOptions.elementAt(_selectedIndex),
+      body: _widgetOptions.elementAt(controller.selectedIndex.value),
       bottomNavigationBar: BottomNavigationBar(
         backgroundColor: Colors.black,
         items: <BottomNavigationBarItem>[
@@ -56,7 +48,7 @@ class _CustomBottomBarState extends State<CustomBottomBar> {
                 width: 24,
                 height: 24,
               ),
-              _selectedIndex == 0,
+              controller.selectedIndex.value == 0,
             ),
             label: 'Near',
           ),
@@ -65,7 +57,7 @@ class _CustomBottomBarState extends State<CustomBottomBar> {
               Image.asset(
                 ImageConstant.pngfav,
               ),
-              _selectedIndex == 1,
+              controller.selectedIndex.value == 1,
             ),
             label: 'Favorites',
           ),
@@ -76,16 +68,16 @@ class _CustomBottomBarState extends State<CustomBottomBar> {
                 width: 24,
                 height: 24,
               ),
-              _selectedIndex == 2,
+              controller.selectedIndex.value == 2,
             ),
             label: 'Settings',
           ),
         ],
-        currentIndex: _selectedIndex,
+        currentIndex: controller.selectedIndex.value,
         //selectedItemColor: Colors.black,
         unselectedItemColor: Color(0xFF999999),
         showUnselectedLabels: true,
-        onTap: _onItemTapped,
+        onTap: controller.changeSelectedTab(0),
       ),
     );
   }

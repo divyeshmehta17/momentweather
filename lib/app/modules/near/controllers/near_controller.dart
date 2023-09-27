@@ -1,54 +1,40 @@
-import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 
 import '../../../services/dio/api_service.dart';
 
-class NearController extends GetxController {
-  final Dio _dio = Dio();
-
-  var isLoading = false.obs;
+class NearController extends GetxController
+    with GetSingleTickerProviderStateMixin {
   var weatherData = {}.obs;
-  var hourlyData = {}.obs;
-  var fivedaysData = {}.obs;
-  String? subLocality;
-
-  RxBool isLocationFetched = true.obs;
-
+  RxString subLocality = ''.obs;
   RxDouble latitude = 0.0.obs;
   RxDouble longitude = 0.0.obs;
+  final Rx<TabController?> selectedIndex = Rx<TabController?>(null);
+  RxBool isLoading = false.obs;
 
   @override
   void onInit() {
     super.onInit();
     fetchLocation();
-    fetchWeatherData();
-    fetchhourlyWeatherData();
-    fetchdailyWeatherData();
-    print('daily: $fivedaysData');
-    print(weatherData);
+  }
+
+  void changeSelectedTab(int index) {
+    selectedIndex.value = TabController(length: 2, vsync: this);
+    selectedIndex.value?.index = index;
   }
 
   Future<void> fetchWeatherData() async {
+    isLoading.value = true;
+
     APIManager.getcurrentweatherdata(
       latitude: latitude.toString(),
       longitude: longitude.toString(),
-    ).then((value) => {weatherData(value.data), print(value.data)});
-  }
+    ).then((value) =>
+        {weatherData(value.data), print('weatherdata: ${value.data}')});
 
-  Future<void> fetchhourlyWeatherData() async {
-    APIManager.gethourlyweatherdata(
-      latitude: latitude.toString(),
-      longitude: longitude.toString(),
-    ).then((value) => {hourlyData(value.data), print(value.data)});
-  }
-
-  Future<void> fetchdailyWeatherData() async {
-    APIManager.getfivedayweatherdata(
-      latitude: latitude.toString(),
-      longitude: longitude.toString(),
-    ).then((value) => {fivedaysData(value.data), print(value.data)});
+    isLoading.value = false;
   }
 
   Future<void> fetchLocation() async {
@@ -67,11 +53,13 @@ class NearController extends GetxController {
 
       // Use the geolocator package to get the location details
       await placemarkFromCoordinates(
-              position?.latitude ?? 0, position?.longitude ?? 0,
-              localeIdentifier: 'enUS')
-          .then((List<Placemark> placemarks) {
+        position.latitude,
+        position.longitude,
+      ).then((List<Placemark> placemarks) async {
         Placemark place = placemarks[0];
-        subLocality = place.locality ?? '';
+        subLocality.value = place.locality ?? '';
+        await fetchWeatherData();
+        print(place);
       });
     } catch (e) {
       print('Error fetching location: $e');

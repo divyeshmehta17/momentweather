@@ -1,17 +1,11 @@
 import 'dart:async';
 
 import 'package:dio/dio.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get_navigation/get_navigation.dart';
-import 'package:get/instance_manager.dart';
 
-import '../../routes/app_pages.dart';
 import '../dialog_helper.dart';
 import '../snackbar.dart';
-import '../storage.dart';
 import 'exceptions.dart';
-import 'jwt_decoder.dart';
 
 class AppInterceptors extends Interceptor {
   bool isOverlayLoader;
@@ -19,17 +13,17 @@ class AppInterceptors extends Interceptor {
 
   AppInterceptors({this.isOverlayLoader = true, this.showSnakbar = true});
 
-  @override
-  FutureOr<dynamic> onRequest(
-      RequestOptions options, RequestInterceptorHandler handler) async {
-    isOverlayLoader ? DialogHelper.showLoading() : null;
-    await Helpers.validateToken(
-      onSuccess: () {
-        //options.headers = {"token": Get.find<GetStorageService>().encjwToken};
-        super.onRequest(options, handler);
-      },
-    );
-  }
+  // @override
+  // FutureOr<dynamic> onRequest(
+  //     RequestOptions options, RequestInterceptorHandler handler) async {
+  //   isOverlayLoader ? DialogHelper.showLoading() : null;
+  //   await Helpers.validateToken(
+  //     onSuccess: () {
+  //       //options.headers = {"token": Get.find<GetStorageService>().encjwToken};
+  //       super.onRequest(options, handler);
+  //     },
+  //   );
+  // }
 
   @override
   FutureOr<dynamic> onResponse(
@@ -94,30 +88,30 @@ class AppInterceptors extends Interceptor {
   // }
 }
 
-class Helpers {
-  static bool _tokenIsValid() {
-    return Get.find<GetStorageService>().encjwToken.isNotEmpty
-        ? JwtDecoder.isValid(Get.find<GetStorageService>().encjwToken)
-        : false;
-  }
-
-  static Future<bool> validateToken({required Function() onSuccess}) async {
-    if (true) {
-      onSuccess();
-      return true;
-    } else {
-      try {
-        Get.find<GetStorageService>().encjwToken =
-            (await FirebaseAuth.instance.currentUser?.getIdToken(true))!;
-        onSuccess();
-        return true;
-      } catch (e) {
-        showMySnackbar(
-            msg: "Session Expired. Please Login Again", title: 'Error');
-        Get.find<GetStorageService>().logout();
-        Get.offAllNamed(Routes.SPLASH);
-        return false;
-      }
-    }
-  }
-}
+// class Helpers {
+//   static bool _tokenIsValid() {
+//     return Get.find<GetStorageService>().encjwToken.isNotEmpty
+//         ? JwtDecoder.isValid(Get.find<GetStorageService>().encjwToken)
+//         : false;
+//   }
+//
+//   static Future<bool> validateToken({required Function() onSuccess}) async {
+//     if (true) {
+//       onSuccess();
+//       return true;
+//     } else {
+//       try {
+//         Get.find<GetStorageService>().encjwToken =
+//             (await FirebaseAuth.instance.currentUser?.getIdToken(true))!;
+//         onSuccess();
+//         return true;
+//       } catch (e) {
+//         showMySnackbar(
+//             msg: "Session Expired. Please Login Again", title: 'Error');
+//         Get.find<GetStorageService>().logout();
+//         Get.offAllNamed(Routes.SPLASH);
+//         return false;
+//       }
+//     }
+//   }
+// }

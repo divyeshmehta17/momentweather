@@ -19,18 +19,18 @@ class AppInterceptors extends Interceptor {
   //   isOverlayLoader ? DialogHelper.showLoading() : null;
   //   await Helpers.validateToken(
   //     onSuccess: () {
-  //       //options.headers = {"token": Get.find<GetStorageService>().encjwToken};
+  //       options.headers = {"token": Get.find<GetStorageService>().encjwToken};
   //       super.onRequest(options, handler);
   //     },
   //   );
   // }
 
-  @override
-  FutureOr<dynamic> onResponse(
-      Response response, ResponseInterceptorHandler handler) {
-    super.onResponse(response, handler);
-    isOverlayLoader ? DialogHelper.hideDialog() : null;
-  }
+  // @override
+  // // FutureOr<dynamic> onResponse(
+  // //     Response response, ResponseInterceptorHandler handler) {
+  // //   super.onResponse(response, handler);
+  // //   isOverlayLoader ? DialogHelper.hideDialog() : null;
+  // // }
 
   @override
   Future<dynamic> onError(
@@ -96,7 +96,7 @@ class AppInterceptors extends Interceptor {
 //   }
 //
 //   static Future<bool> validateToken({required Function() onSuccess}) async {
-//     if (true) {
+//     if (_tokenIsValid()) {
 //       onSuccess();
 //       return true;
 //     } else {

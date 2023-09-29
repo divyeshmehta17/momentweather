@@ -4,23 +4,13 @@ part of 'app_pages.dart';
 abstract class Routes {
   Routes._();
   static const SPLASH = _Paths.SPLASH;
-  static const TODAYWEATHER = _Paths.TODAYWEATHER;
-
-  static const DAILYWEATHER = _Paths.DAILYWEATHER;
-  static const FAVORITE = _Paths.FAVORITE;
-  static const SETTINGS = _Paths.SETTINGS;
-  static const NEAR = _Paths.NEAR;
   static const TABBAR = _Paths.TABBAR;
+  static const FIVEDAYS = _Paths.FIVEDAYS;
 }
 
 abstract class _Paths {
   _Paths._();
   static const SPLASH = '/splash';
-  static const TODAYWEATHER = '/todayweather';
-
-  static const DAILYWEATHER = '/dailyweather';
-  static const FAVORITE = '/favorite';
-  static const SETTINGS = '/settings';
-  static const NEAR = '/near';
   static const TABBAR = '/tabbar';
+  static const FIVEDAYS = '/fivedays';
 }

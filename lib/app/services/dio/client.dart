@@ -33,7 +33,6 @@ class DioClient {
     bool isOverlayLoader = true,
     bool showSnakbar = true,
   }) async {
-    print('url from client file: $url');
     final Response response = await _dio.get(
       url,
       queryParameters: queryParameters,
